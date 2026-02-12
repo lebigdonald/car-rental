@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AdminCreationRequest;
+use App\Models\Admin;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Car;
@@ -80,5 +83,23 @@ class AdminController extends Controller
         }
 
         return view('admin.index', compact('totalCars', 'totalUsers', 'activeRentals', 'pendingRentals', 'totalRevenue', 'pendingRevenue', 'popularCar', 'recentRentals', 'labels', 'data', 'revenueData'));
+    }
+
+    /**
+     * @return Application|Factory|View|\Illuminate\Foundation\Application|\Illuminate\View\View
+     */
+    public function createAdmin()
+    {
+        return view('admin.admin-create');
+    }
+
+    /**
+     * @param AdminCreationRequest $request
+     * @return RedirectResponse
+     */
+    public function storeAdmin(AdminCreationRequest $request)
+    {
+        Admin::create($request->validated());
+        return redirect()->route('admin.home')->with('success', 'Nouvel administrateur créé avec succès.');
     }
 }

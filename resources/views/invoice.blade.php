@@ -13,8 +13,8 @@
 
         body h1 {
             font-weight: 300;
-            margin-bottom: 0px;
-            padding-bottom: 0px;
+            margin-bottom: 0;
+            padding-bottom: 0;
             color: #000;
         }
 
