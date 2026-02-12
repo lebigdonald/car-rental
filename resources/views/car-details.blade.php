@@ -125,8 +125,7 @@
                                                 <label for="type1">Cash</label>
                                             </li>
                                             <li>
-                                                <input id="type2" type="radio" value="Mobile" name="payement_method"
-                                                       checked="">
+                                                <input id="type2" type="radio" value="Mobile" name="payement_method">
                                                 <label for="type2">Mobile</label>
                                             </li>
                                             <li>
@@ -135,7 +134,7 @@
                                             </li>
                                             <li>
                                                 <input id="type4" type="radio" value="Credit Card"
-                                                       name="payement_method" checked="">
+                                                       name="payement_method">
                                                 <label for="type4">Visa</label>
                                             </li>
                                             <li>

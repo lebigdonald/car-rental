@@ -62,7 +62,7 @@
                             <div class="col-sm-3"></div>
                             <div class="col-sm-9">
                                 <button type="submit" class="btn btn-primary mr-2" disabled>Enregistrer</button>
-                                <button type="button" class="btn btn-secondary" >Annuler</button>
+                                <a href="{{ route('admin.user.index') }}" class="btn btn-secondary">Annuler</a>
                             </div>
                         </div>
                     </form>

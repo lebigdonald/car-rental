@@ -117,7 +117,7 @@
           </li>
         </ul>
         <div class="car__footer">
-          <span class="car__price">{{ intval($car->daily_rate) }} FCFA <sub>/ jour</sub></span>
+          <span class="car__price">{{ number_format(intval($car->daily_rate), 0, ',', ' ') }} FCFA <sub>/ jour</sub></span>
 
           <a href="{{ route('car.show', ['id' => $car->id]) }}" class="car__more"><span>Details</span></a>
         </div>

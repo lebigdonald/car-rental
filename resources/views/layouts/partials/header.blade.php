@@ -13,16 +13,16 @@
                     <div class="header__menu">
                         <ul class="header__nav">
                             <li class="header__nav-item">
-                                <a href="{{ route('home.index') }}" class="header__nav-link">Accueil</a>
+                                <a href="{{ route('home.index') }}" class="header__nav-link {{ request()->routeIs('home.index') ? 'header__nav-link--active' : '' }}">Accueil</a>
                             </li>
                             <li class="header__nav-item">
-                                <a href="{{ route('car.index') }}" class="header__nav-link">Voitures</a>
+                                <a href="{{ route('car.index') }}" class="header__nav-link {{ request()->routeIs('car.*') ? 'header__nav-link--active' : '' }}">Voitures</a>
                             </li>
                             <li class="header__nav-item">
-                                <a href="{{ route('about.show') }}" class="header__nav-link">À propos de nous</a>
+                                <a href="{{ route('about.show') }}" class="header__nav-link {{ request()->routeIs('about.show') ? 'header__nav-link--active' : '' }}">À propos de nous</a>
                             </li>
                             <li class="header__nav-item">
-                                <a href="{{ route('contacts.show') }}" class="header__nav-link">Contacts</a>
+                                <a href="{{ route('contacts.show') }}" class="header__nav-link {{ request()->routeIs('contacts.show') ? 'header__nav-link--active' : '' }}">Contacts</a>
                             </li>
                         </ul>
                     </div>

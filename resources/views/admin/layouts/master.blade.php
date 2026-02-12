@@ -2,101 +2,106 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="@yield('description')" />
-    <meta name="author" content="@yield('author')" />
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content="@yield('description')"/>
+    <meta name="author" content="@yield('author')"/>
     <title>CarRental Admin - @yield('title')</title>
-    <link href="{{ asset('dashboard/css/styles.css') }}" rel="stylesheet" />
-    <!--<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>-->
+
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('lib/bootstrap/css/bootstrap.min.css') }}">
+
+    <!-- Custom Styles (loaded after Bootstrap to override) -->
+    <link href="{{ asset('dashboard/css/styles.css') }}" rel="stylesheet"/>
+
+    <!--<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 
     <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
     <link rel="apple-touch-icon" href="{{ asset('favicon.svg') }}">
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 </head>
 
 <body>
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="{{ route('admin.home') }}"><img src="{{ asset('img/logo-white.svg') }}" alt=""></a>
-        <!-- Sidebar Toggle-->
-        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white">
-                <line x1="3" y1="12" x2="21" y2="12"></line>
-                <line x1="3" y1="6" x2="21" y2="6"></line>
-                <line x1="3" y1="18" x2="21" y2="18"></line>
-            </svg>
-        </button>
-        <!-- Navbar Search-->
-        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <!-- Navbar Brand-->
+    <a class="navbar-brand ps-3" href="{{ route('admin.home') }}"><img src="{{ asset('img/logo-white.svg') }}"
+                                                                       alt=""></a>
+    <!-- Sidebar Toggle-->
+    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </button>
+    <!-- Navbar Search-->
+    <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
 
-        </form>
-        <!-- Navbar-->
-        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+    </form>
+    <!-- Navbar-->
+    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+        <li><a class="text-light btn btn-dark" href="{{ route('admin.logout.perform') }}">Déconnexion</a></li>
 
-                    <!--
-                        <li><a class="dropdown-item" href="#!">Settings</a></li>
-                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        -->
-                    <li><a class="text-light btn btn-dark" href="{{ route('admin.logout.perform') }}">Déconnexion</a></li>
-
-        </ul>
+    </ul>
 
 
-    </nav>
-    <div id="layoutSidenav">
-        <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                <div class="sb-sidenav-menu">
-                    <div class="nav">
-                        <div class="sb-sidenav-menu-heading">MENU</div>
-                        <a class="nav-link" href="{{ route('admin.home') }}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Statistiques
-                        </a>
-                        <div class="sb-sidenav-menu-heading">Données</div>
-                        <a class="nav-link" href="{{ route('admin.user.index') }}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            Utilisateurs
-                        </a>
-                        <a class="nav-link" href="{{ route('admin.car.index') }}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Voitures
-                        </a>
-                        <a class="nav-link" href="{{ route('admin.rent.index') }}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Locations
-                        </a>
-                    </div>
+</nav>
+<div id="layoutSidenav">
+    <div id="layoutSidenav_nav">
+        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+            <div class="sb-sidenav-menu">
+                <div class="nav">
+                    <div class="sb-sidenav-menu-heading">MENU</div>
+                    <a class="nav-link {{ request()->routeIs('admin.home') ? 'active' : '' }}" href="{{ route('admin.home') }}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        Statistiques
+                    </a>
+                    <div class="sb-sidenav-menu-heading">Données</div>
+                    <a class="nav-link {{ request()->routeIs('admin.user.*') ? 'active' : '' }}" href="{{ route('admin.user.index') }}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                        Utilisateurs
+                    </a>
+                    <a class="nav-link {{ request()->routeIs('admin.car.*') ? 'active' : '' }}" href="{{ route('admin.car.index') }}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                        Voitures
+                    </a>
+                    <a class="nav-link {{ request()->routeIs('admin.rent.*') ? 'active' : '' }}" href="{{ route('admin.rent.index') }}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                        Locations
+                    </a>
                 </div>
-                <div class="sb-sidenav-footer">
-                    <div class="small">Connecté en tant que:</div>
-                    {{ auth('admin')->user()->username }}
-                </div>
-            </nav>
-        </div>
-        <div id="layoutSidenav_content">
-            <main>
-                @yield('main')
-            </main>
-            <footer class="py-4 bg-light mt-auto">
-                <div class="container-fluid px-4">
-                    <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; CarRental {{ date('Y') }}</div>
-                    </div>
-                </div>
-            </footer>
-        </div>
+            </div>
+            <div class="sb-sidenav-footer">
+                <div class="small">Connecté en tant que:</div>
+                {{ auth('admin')->user()->username }}
+            </div>
+        </nav>
     </div>
-    <script src="{{ asset('lib/bootstrap/js/bootstrap.min.js') }}" crossorigin="anonymous"></script>
-    <script src="{{ asset('lib/bootstrap/js/bootstrap.bundle.js') }}" crossorigin="anonymous"></script>
-    <script src="{{ asset('dashboard/js/scripts.js') }}"></script>
-    <script src="{{ asset('dashboard/js/image-preview.js') }}"></script>
-    @yield('scripts')
+    <div id="layoutSidenav_content">
+        <main>
+            @yield('main')
+        </main>
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid px-4">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; CarRental {{ date('Y') }}</div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+<script src="{{ asset('lib/bootstrap/js/bootstrap.min.js') }}" crossorigin="anonymous"></script>
+<script src="{{ asset('lib/bootstrap/js/bootstrap.bundle.js') }}" crossorigin="anonymous"></script>
+<script src="{{ asset('dashboard/js/scripts.js') }}"></script>
+<script src="{{ asset('dashboard/js/image-preview.js') }}"></script>
+<script src="{{ asset('js/main.js') }}"></script>
+@yield('scripts')
 </body>
 
 </html>
