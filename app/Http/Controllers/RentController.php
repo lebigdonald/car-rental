@@ -57,7 +57,7 @@ class RentController extends Controller
         // Check if the car is available for the selected dates
         // Only check against active rentals (not cancelled ones)
         $conflictingRent = Rent::where('car_id', $id)
-            ->where('payement_status', '!=', 'annulé')
+            ->where('payement_status', '!=', 'Annulé')
             ->where(function ($query) use ($startDate, $endDate) {
                 $query->whereBetween('start_date', [$startDate, $endDate])
                       ->orWhereBetween('end_date', [$startDate, $endDate])
@@ -82,7 +82,7 @@ class RentController extends Controller
         }
 
         $rent->total_cost = $nbDay * $car->daily_rate;
-        $rent->payement_status = "en attente";
+        $rent->payement_status = "En Attente";
         $rent->car_id = $id;
         $rent->user_id = Auth::id();
         $rent->save();
@@ -137,7 +137,7 @@ class RentController extends Controller
         if ($startDate->ne($rent->start_date) || $endDate->ne($rent->end_date)) {
             $conflictingRent = Rent::where('car_id', $rent->car_id)
                 ->where('id', '!=', $rent->id) // Exclude the current rental
-                ->where('payement_status', '!=', 'annulé')
+                ->where('payement_status', '!=', 'Annulé')
                 ->where(function ($query) use ($startDate, $endDate) {
                     $query->whereBetween('start_date', [$startDate, $endDate])
                           ->orWhereBetween('end_date', [$startDate, $endDate])
@@ -181,7 +181,7 @@ class RentController extends Controller
         } else {
             // Allow user to cancel if it's their rent and maybe pending?
             if ($rent->user_id === Auth::id()) {
-                $rent->payement_status = 'annulé';
+                $rent->payement_status = 'Annulé';
                 $rent->save();
                 return redirect()->route('rent.index')->with('success', 'La location a été annulée.');
             }
@@ -192,7 +192,7 @@ class RentController extends Controller
     public function approve($id)
     {
         $rent = Rent::with('user', 'car')->findOrFail($id);
-        $rent->payement_status = 'payé';
+        $rent->payement_status = 'Payé';
         $rent->save();
 
         try {
@@ -207,7 +207,7 @@ class RentController extends Controller
     public function reject($id)
     {
         $rent = Rent::with('user', 'car')->findOrFail($id);
-        $rent->payement_status = 'annulé';
+        $rent->payement_status = 'Annulé';
         $rent->save();
 
         try {
@@ -227,7 +227,7 @@ class RentController extends Controller
             abort(403);
         }
 
-        if ($rent->payement_status !== 'payé') {
+        if ($rent->payement_status !== 'Payé') {
             return redirect()->back()->withErrors(['message' => 'La facture n\'est disponible que pour les locations payées.']);
         }
 

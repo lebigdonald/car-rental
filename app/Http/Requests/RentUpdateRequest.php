@@ -27,7 +27,7 @@ class RentUpdateRequest extends FormRequest
             'end_date' => 'required|date|after:start_date',
             'payement_status' => [
                 'required',
-                Rule::in(['en attente', 'payé', 'annulé']),
+                Rule::in(['En Attente', 'Payé', 'Annulé']),
             ],
             'payement_method' => 'required|string',
         ];

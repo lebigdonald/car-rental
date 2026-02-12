@@ -64,10 +64,10 @@
                             <label for="fuel_type" class="col-sm-3 my-2 col-form-label">Type de carburant :</label>
                             <div class="col-sm-9">
                                 <select class="form-control" id="fuel_type" name="fuel_type" required>
-                                    <option value="diesel" {{ old('fuel_type', $car->fuel_type) == 'diesel' ? 'selected' : '' }}>Diesel</option>
-                                    <option value="hybrid" {{ old('fuel_type', $car->fuel_type) == 'hybrid' ? 'selected' : '' }}>Hybride</option>
-                                    <option value="essence" {{ old('fuel_type', $car->fuel_type) == 'essence' ? 'selected' : '' }}>Essence</option>
-                                    <option value="electric" {{ old('fuel_type', $car->fuel_type) == 'electric' ? 'selected' : '' }}>Électrique</option>
+                                    <option value="Diesel" {{ old('fuel_type', $car->fuel_type) == 'Diesel' ? 'selected' : '' }}>Diesel</option>
+                                    <option value="Hybride" {{ old('fuel_type', $car->fuel_type) == 'Hybride' ? 'selected' : '' }}>Hybride</option>
+                                    <option value="Essence" {{ old('fuel_type', $car->fuel_type) == 'Essence' ? 'selected' : '' }}>Essence</option>
+                                    <option value="Électrique" {{ old('fuel_type', $car->fuel_type) == 'Électrique' ? 'selected' : '' }}>Électrique</option>
                                 </select>
                             </div>
                         </div>
@@ -75,8 +75,8 @@
                             <label for="transmission_type" class="col-sm-3 my-2 col-form-label">Type de transmission :</label>
                             <div class="col-sm-9">
                                 <select class="form-control" id="transmission_type" name="transmission_type" required>
-                                    <option value="automatique" {{ old('transmission_type', $car->transmission_type) == 'automatique' ? 'selected' : '' }}>Automatique</option>
-                                    <option value="manuel" {{ old('transmission_type', $car->transmission_type) == 'manuel' ? 'selected' : '' }}>Manuel</option>
+                                    <option value="Automatique" {{ old('transmission_type', $car->transmission_type) == 'Automatique' ? 'selected' : '' }}>Automatique</option>
+                                    <option value="Manuel" {{ old('transmission_type', $car->transmission_type) == 'Manuel' ? 'selected' : '' }}>Manuel</option>
                                 </select>
                             </div>
                         </div>

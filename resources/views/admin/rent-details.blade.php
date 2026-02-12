@@ -25,30 +25,30 @@
                         <p><strong>Coût total:</strong> {{ number_format($rent->total_cost, 0, ',', ' ') }} FCFA</p>
                         <p><strong>Méthode de paiement:</strong> {{ $rent->payement_method }}</p>
                         <p><strong>Statut du paiement:</strong>
-                            @if($rent->payement_status == 'payé')
+                            @if($rent->payement_status == 'Payé')
                                 <span class="badge bg-success">Payé</span>
-                            @elseif($rent->payement_status == 'en attente')
+                            @elseif($rent->payement_status == 'En Attente')
                                 <span class="badge bg-warning text-dark">En attente</span>
-                            @elseif($rent->payement_status == 'annulé')
+                            @elseif($rent->payement_status == 'Annulé')
                                 <span class="badge bg-danger">Annulé</span>
                             @else
                                 <span class="badge bg-secondary">{{ $rent->payement_status }}</span>
                             @endif
                         </p>
 
-                        @if($rent->payement_status == 'en attente')
+                        @if($rent->payement_status == 'En Attente')
                         <div class="mt-3">
                             <h5>Actions</h5>
                             <form action="{{ route('admin.rent.approve', $rent->id) }}" method="POST" class="d-inline">
                                 @csrf
-                                <button type="submit" class="btn btn-success">Approuver (Marquer comme payé)</button>
+                                <button type="submit" class="btn btn-success">Approuver (Marquer comme Payé)</button>
                             </form>
                             <form action="{{ route('admin.rent.reject', $rent->id) }}" method="POST" class="d-inline">
                                 @csrf
                                 <button type="submit" class="btn btn-danger">Rejeter</button>
                             </form>
                         </div>
-                        @elseif($rent->payement_status == 'payé')
+                        @elseif($rent->payement_status == 'Payé')
                         <div class="mt-3">
                             <a href="{{ route('admin.rent.invoice', ['id' => $rent->id]) }}" class="btn btn-primary" target="_blank">Voir la facture</a>
                         </div>

@@ -66,11 +66,11 @@
                                                         <td>{{ Carbon::parse($rent->start_date)->format('d/m/Y') }}</td>
                                                         <td>{{ Carbon::parse($rent->end_date)->format('d/m/Y') }}</td>
                                                         <td>
-                                                            @if($rent->payement_status == 'payé')
+                                                            @if($rent->payement_status == 'Payé')
                                                                 <span class="badge" style="background-color: #28a745; color: white; padding: 5px 10px; border-radius: 15px;">Payé</span>
-                                                            @elseif($rent->payement_status == 'en attente')
+                                                            @elseif($rent->payement_status == 'En Attente')
                                                                 <span class="badge" style="background-color: #ffc107; color: black; padding: 5px 10px; border-radius: 15px;">En attente</span>
-                                                            @elseif($rent->payement_status == 'annulé')
+                                                            @elseif($rent->payement_status == 'Annulé')
                                                                 <span class="badge" style="background-color: #dc3545; color: white; padding: 5px 10px; border-radius: 15px;">Annulé</span>
                                                             @else
                                                                 <span
@@ -82,7 +82,7 @@
                                                             FCFA
                                                         </td>
                                                         <td>
-                                                            @if($rent->payement_status == 'en attente')
+                                                            @if($rent->payement_status == 'En Attente')
                                                                 <form
                                                                     action="{{ route('rent.destroy', ['id' => $rent->id]) }}"
                                                                     method="POST"
@@ -94,7 +94,7 @@
                                                                         Annuler
                                                                     </button>
                                                                 </form>
-                                                            @elseif($rent->payement_status == 'payé')
+                                                            @elseif($rent->payement_status == 'Payé')
                                                                 <a href="{{ route('rent.invoice', ['id' => $rent->id]) }}" class="btn btn-primary btn-sm badge-primary" target="_blank">Facture</a>
                                                             @endif
                                                         </td>

@@ -25,16 +25,16 @@ class CarCreationRequest extends FormRequest
         return [
             'model' => 'required|string',
             'brand' => 'required|string',
-            'make_year' => 'required|integer|min:1900|max:' . (date('Y') + 1),
+            'make_year' => 'required|integer|min:1900|max:' . now()->addYear()->year,
             'passenger_capacity' => 'required|integer|min:1|max:10',
             'kilometers_per_liter' => 'required|numeric|min:0|max:50',
             'fuel_type' => [
                 'required',
-                Rule::in(['diesel', 'hybrid', 'essence', 'electric']),
+                Rule::in(['Diesel', 'Hybride', 'Essence', 'Électrique']),
             ],
             'transmission_type' => [
                 'required',
-                Rule::in(['automatique', 'manuel']),
+                Rule::in(['Automatique', 'Manuel']),
             ],
             'daily_rate' => 'required|numeric|min:0',
             'main_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',

@@ -28,13 +28,13 @@ class AdminController extends Controller
 
         $activeRentals = Rent::whereDate('start_date', '<=', now())
             ->whereDate('end_date', '>=', now())
-            ->where('payement_status', 'payé')
+            ->where('payement_status', 'Payé')
             ->count();
 
-        $pendingRentals = Rent::where('payement_status', 'en attente')->count();
+        $pendingRentals = Rent::where('payement_status', 'En Attente')->count();
 
-        $totalRevenue = Rent::where('payement_status', 'payé')->sum('total_cost');
-        $pendingRevenue = Rent::where('payement_status', 'en attente')->sum('total_cost');
+        $totalRevenue = Rent::where('payement_status', 'Payé')->sum('total_cost');
+        $pendingRevenue = Rent::where('payement_status', 'En Attente')->sum('total_cost');
 
         // Most popular car
         $popularCarId = Rent::select('car_id', DB::raw('count(*) as total'))
@@ -66,7 +66,7 @@ class AdminController extends Controller
             DB::raw("DATE_FORMAT(created_at, '%m') as month_name")
         )
             ->whereYear('created_at', date('Y'))
-            ->where('payement_status', 'payé')
+            ->where('payement_status', 'Payé')
             ->groupBy('month_name')
             ->orderBy('month_name')
             ->pluck('total', 'month_name');
