@@ -56,15 +56,15 @@
                                                             <div class="col-sm-9">
                                                                 <select class="form-control" id="payement_status" name="payement_status" required>
                                                                     <option
-                                                                        value="en attente" {{ old('payement_status', $rent->payement_status) == 'en attente' ? 'selected' : '' }}>
+                                                                        value="En Attente" {{ old('payement_status', $rent->payement_status) == 'En Attente' ? 'selected' : '' }}>
                                                                         En attente
                                                                     </option>
                                                                     <option
-                                                                        value="payé" {{ old('payement_status', $rent->payement_status) == 'payé' ? 'selected' : '' }}>
+                                                                        value="Payé" {{ old('payement_status', $rent->payement_status) == 'Payé' ? 'selected' : '' }}>
                                                                         Payé
                                                                     </option>
                                                                     <option
-                                                                        value="annulé" {{ old('payement_status', $rent->payement_status) == 'annulé' ? 'selected' : '' }}>
+                                                                        value="Annulé" {{ old('payement_status', $rent->payement_status) == 'Annulé' ? 'selected' : '' }}>
                                                                         Annulé
                                                                     </option>
                                                                 </select>
@@ -77,23 +77,23 @@
                                 <div class="col-sm-9">
                                     <select class="form-control" id="payement_method" name="payement_method" required>
                                         <option
-                                            value="cash" {{ old('payement_method', $rent->payement_method) == 'cash' ? 'selected' : '' }}>
+                                            value="Cash" {{ old('payement_method', $rent->payement_method) == 'Cash' ? 'selected' : '' }}>
                                             Cash
                                         </option>
                                         <option
-                                            value="mobile" {{ old('payement_method', $rent->payement_method) == 'mobile' ? 'selected' : '' }}>
+                                            value="Mobile" {{ old('payement_method', $rent->payement_method) == 'Mobile' ? 'selected' : '' }}>
                                             Mobile
                                         </option>
                                         <option
-                                            value="paypal" {{ old('payement_method', $rent->payement_method) == 'paypal' ? 'selected' : '' }}>
+                                            value="Paypal" {{ old('payement_method', $rent->payement_method) == 'Paypal' ? 'selected' : '' }}>
                                             Paypal
                                         </option>
                                         <option
-                                            value="visa" {{ old('payement_method', $rent->payement_method) == 'visa' ? 'selected' : '' }}>
+                                            value="Visa" {{ old('payement_method', $rent->payement_method) == 'Visa' ? 'selected' : '' }}>
                                             Visa
                                         </option>
                                         <option
-                                            value="mastercard" {{ old('payement_method', $rent->payement_method) == 'mastercard' ? 'selected' : '' }}>
+                                            value="Mastercard" {{ old('payement_method', $rent->payement_method) == 'Mastercard' ? 'selected' : '' }}>
                                             Mastercard
                                         </option>
                                     </select>

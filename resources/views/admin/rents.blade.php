@@ -47,11 +47,11 @@
                                 <td>{{ Carbon::parse($rent->end_date)->format('d/m/Y') }}</td>
                                 <td>{{ number_format($rent->total_cost, 0, ',', ' ') }} FCFA</td>
                                 <td>
-                                    @if($rent->payement_status == 'payé')
+                                    @if($rent->payement_status == 'Payé')
                                         <span class="badge badge-success">Payé</span>
-                                    @elseif($rent->payement_status == 'en attente')
+                                    @elseif($rent->payement_status == 'En Attente')
                                         <span class="badge badge-warning">En attente</span>
-                                    @elseif($rent->payement_status == 'annulé')
+                                    @elseif($rent->payement_status == 'Annulé')
                                         <span class="badge badge-danger">Annulé</span>
                                     @else
                                         <span
@@ -69,7 +69,7 @@
                                             <li><a class="dropdown-item"
                                                    href="{{ route('admin.rent.show', ['id' => $rent->id]) }}">Voir</a>
                                             </li>
-                                            @if($rent->payement_status == 'en attente')
+                                            @if($rent->payement_status == 'En Attente')
                                                 <li>
                                                     <a class="dropdown-item"
                                                        href="{{ route('admin.rent.edit', ['id' => $rent->id]) }}">Modifier</a>

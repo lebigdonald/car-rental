@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Rent extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'start_date',
         'end_date',

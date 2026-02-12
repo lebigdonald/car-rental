@@ -33,11 +33,11 @@ class CarUpdateRequest extends FormRequest
             'kilometers_per_liter' => 'sometimes|numeric|min:0',
             'fuel_type' => [
                 'sometimes',
-                Rule::in(['diesel', 'hybrid', 'essence', 'electric']),
+                Rule::in(['Diesel', 'Hybride', 'Essence', 'Électrique']),
             ],
             'transmission_type' => [
                 'sometimes',
-                Rule::in(['automatique', 'manuel']),
+                Rule::in(['Automatique', 'Manuel']),
             ],
             'daily_rate' => 'sometimes|numeric|min:0',
             'main_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',

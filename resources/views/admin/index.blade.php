@@ -51,7 +51,7 @@
             <div class="col-xl-4 col-md-6">
                 <div class="card bg-info text-white mb-4">
                     <div class="card-body">
-                        <h5 class="card-title">Locations en attente</h5>
+                        <h5 class="card-title">Locations En Attente</h5>
                         <p class="card-text display-6">{{ $pendingRentals }}</p>
                     </div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
@@ -75,7 +75,7 @@
             <div class="col-xl-4 col-md-6">
                 <div class="card bg-secondary text-white mb-4">
                     <div class="card-body">
-                        <h5 class="card-title">Revenu en attente</h5>
+                        <h5 class="card-title">Revenu En Attente</h5>
                         <p class="card-text display-6">{{ number_format($pendingRevenue, 0, ',', ' ') }} FCFA</p>
                     </div>
                     <div class="card-footer d-flex align-items-center justify-content-between">

@@ -67,10 +67,10 @@
                             <label for="fuel_type" class="col-sm-3 my-2 col-form-label">Type de carburant :</label>
                             <div class="col-sm-9">
                                 <select class="form-control" id="fuel_type" name="fuel_type" required>
-                                    <option value="diesel">Diesel</option>
-                                    <option value="hybrid">Hybride</option>
-                                    <option value="essence">Essence</option>
-                                    <option value="electric">Électrique</option>
+                                    <option value="Diesel">Diesel</option>
+                                    <option value="Hybride">Hybride</option>
+                                    <option value="Essence">Essence</option>
+                                    <option value="Électrique">Électrique</option>
                                 </select>
                             </div>
                         </div>
@@ -78,8 +78,8 @@
                             <label for="transmission_type" class="col-sm-3 my-2 col-form-label">Type de transmission :</label>
                             <div class="col-sm-9">
                                 <select class="form-control" id="transmission_type" name="transmission_type" required>
-                                    <option value="automatique">Automatique</option>
-                                    <option value="manuel">Manuel</option>
+                                    <option value="Automatique">Automatique</option>
+                                    <option value="Manuel">Manuel</option>
                                 </select>
                             </div>
                         </div>
