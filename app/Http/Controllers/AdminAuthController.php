@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\AdminLogingRequest;
 use App\Http\Requests\AdminRegisterRequest;
@@ -12,9 +17,9 @@ class AdminAuthController extends Controller
 {
 
     /**
-     * Display resgistration page.
-     * 
-     * @return \Illuminate\Http\Response
+     * Display registration page.
+     *
+     * @return Application|Factory|\Illuminate\Foundation\Application|\Illuminate\View\View|View
      */
     public function show_register()
     {
@@ -23,9 +28,9 @@ class AdminAuthController extends Controller
 
      /**
      * Display login page.
-     * 
-     * @return \Illuminate\Http\Response
-     */
+     *
+     * @return Application|Factory|View|\Illuminate\Foundation\Application|\Illuminate\View\View
+      */
     public function show_login()
     {
         return view('admin.auth.login');
@@ -33,12 +38,11 @@ class AdminAuthController extends Controller
 
     /**
      * Handle account registration request
-     * 
-     * @param AdminRegisterRequest $request
-     * 
-     * @return \Illuminate\Http\Response
+     *
+     * @param AdminRegisterRequest $req
+     * @return RedirectResponse
      */
-    public function register(AdminRegisterRequest $req) 
+    public function register(AdminRegisterRequest $req)
     {
         $admin = Admin::create($req->validated());
 
@@ -49,10 +53,10 @@ class AdminAuthController extends Controller
 
     /**
      * Handle account login request
-     * 
-     * @param AdminLoginRequest $request
-     * 
-     * @return \Illuminate\Http\Response
+     *
+     * @param AdminLogingRequest $request
+     *
+     * @return RedirectResponse
      */
     public function login(AdminLogingRequest $request)
     {
@@ -70,7 +74,7 @@ class AdminAuthController extends Controller
     /**
      * Log out account user.
      *
-     * @return \Illuminate\Routing\Redirector
+     * @return RedirectResponse
      */
     public function logout(Request $request)
     {
@@ -81,13 +85,13 @@ class AdminAuthController extends Controller
 
     /**
      * Handle response after user authenticated
-     * 
+     *
      * @param Request $request
      * @param Auth $user
-     * 
-     * @return \Illuminate\Http\Response
+     *
+     * @return RedirectResponse
      */
-    protected function authenticated(Request $request, $user) 
+    protected function authenticated(Request $request, $user)
     {
         return redirect()->route('admin.home');
     }

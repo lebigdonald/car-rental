@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CarController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\RentController;
 use App\Http\Controllers\UserController;
@@ -37,6 +38,7 @@ Route::view('/a-propos', 'apropos')->name('about.show');
 
 // Contact route
 Route::view('/contacts', 'contacts')->name('contacts.show');
+Route::post('/contacts', [ContactController::class, 'send'])->name('contacts.send');
 
 Route::group(['middleware' => ['guest']], function () {
     // Register routes

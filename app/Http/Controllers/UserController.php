@@ -72,7 +72,7 @@ class UserController extends Controller
             return view('admin.user-edit')->with(compact('user'));
         } else {
             // For regular users, we might use the same profile view but with a form
-            return view('profile-edit', compact('user'));
+            return view('profile', compact('user'));
         }
     }
 

@@ -12,7 +12,7 @@ class CarUpdateRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         // Assuming only authenticated admins can update cars.
         return auth()->guard('admin')->check();
@@ -23,12 +23,12 @@ class CarUpdateRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'model' => 'sometimes|string|max:255',
             'brand' => 'sometimes|string|max:255',
-            'make_year' => 'sometimes|integer|min:1900|max:' . (date('Y') + 1),
+            'make_year' => 'sometimes|integer|min:1900|max:' . (now()->year + 1),
             'passenger_capacity' => 'sometimes|integer|min:1',
             'kilometers_per_liter' => 'sometimes|numeric|min:0',
             'fuel_type' => [

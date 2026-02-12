@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Car;
@@ -12,6 +15,9 @@ use Carbon\Carbon;
 
 class AdminController extends Controller
 {
+    /**
+     * @return Application|Factory|View|\Illuminate\Foundation\Application|\Illuminate\View\View
+     */
     public function index()
     {
         $totalCars = Car::count();
@@ -69,8 +75,8 @@ class AdminController extends Controller
         for ($i = 1; $i <= 12; $i++) {
             $month = str_pad($i, 2, '0', STR_PAD_LEFT);
             $labels[] = Carbon::create()->month($i)->format('F');
-            $data[] = isset($monthlyRentals[$month]) ? $monthlyRentals[$month] : 0;
-            $revenueData[] = isset($monthlyRevenue[$month]) ? $monthlyRevenue[$month] : 0;
+            $data[] = $monthlyRentals[$month] ?? 0;
+            $revenueData[] = $monthlyRevenue[$month] ?? 0;
         }
 
         return view('admin.index', compact('totalCars', 'totalUsers', 'activeRentals', 'pendingRentals', 'totalRevenue', 'pendingRevenue', 'popularCar', 'recentRentals', 'labels', 'data', 'revenueData'));

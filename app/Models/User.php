@@ -49,9 +49,9 @@ class User extends Authenticatable
      * Always encrypt the password when it is updated.
      *
      * @param $value
-     * @return string
+     * @return void
      */
-    public function setPasswordAttribute($value)
+    public function setPasswordAttribute($value): void
     {
         $this->attributes['password'] = bcrypt($value);
     }

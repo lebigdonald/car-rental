@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RentMakingRequest;
 use App\Http\Requests\RentUpdateRequest;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Rent;
 use Carbon\Carbon;
 use App\Models\Car;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\RentApproved;
 use App\Mail\RentRejected;
@@ -195,8 +197,8 @@ class RentController extends Controller
 
         try {
             Mail::to($rent->user->email)->send(new RentApproved($rent));
-        } catch (\Exception $e) {
-            // Log error or handle it, but don't break the flow
+        } catch (Exception $exception) {
+            Log::error($exception->getMessage());
         }
 
         return redirect()->back()->with('success', 'La location a été approuvée et l\'email a été envoyé.');
@@ -210,8 +212,8 @@ class RentController extends Controller
 
         try {
             Mail::to($rent->user->email)->send(new RentRejected($rent));
-        } catch (\Exception $e) {
-            // Log error or handle it, but don't break the flow
+        } catch (Exception $exception) {
+            Log::error($exception->getMessage());
         }
 
         return redirect()->back()->with('success', 'La location a été rejetée et l\'email a été envoyé.');

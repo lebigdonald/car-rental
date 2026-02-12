@@ -27,7 +27,7 @@ class RentMakingRequest extends FormRequest
             'end_date' => 'required|date|after:start_date',
             'payement_method' => [
                 'required',
-                Rule::in(['paypal', 'visa', 'mastercard'])
+                Rule::in(['cash', 'mobile', 'paypal', 'visa', 'mastercard'])
             ]
         ];
     }

@@ -45,29 +45,43 @@
         </div>
 
         <div class="col-12 col-md-6 col-lg-7">
-            <form action="#" class="sign__form sign__form--contacts">
+            @if (session('success'))
+                <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <form action="{{ route('contacts.send') }}" method="POST" class="sign__form sign__form--contacts">
+                @csrf
                 <div class="row">
                     <div class="col-12 col-xl-6">
                         <div class="sign__group">
-                            <input type="text" class="sign__input" placeholder="Nom">
+                            <input type="text" name="name" class="sign__input" placeholder="Nom" required value="{{ old('name') }}">
                         </div>
                     </div>
 
                     <div class="col-12 col-xl-6">
                         <div class="sign__group">
-                            <input type="text" class="sign__input" placeholder="Email">
+                            <input type="email" name="email" class="sign__input" placeholder="Email" required value="{{ old('email') }}">
                         </div>
                     </div>
 
                     <div class="col-12">
                         <div class="sign__group">
-                            <input type="text" class="sign__input" placeholder="Sujet">
+                            <input type="text" name="subject" class="sign__input" placeholder="Sujet" required value="{{ old('subject') }}">
                         </div>
                     </div>
 
                     <div class="col-12">
                         <div class="sign__group">
-                            <textarea class="sign__textarea" placeholder="Message"></textarea>
+                            <textarea name="message" class="sign__textarea" placeholder="Message" required>{{ old('message') }}</textarea>
                         </div>
                     </div>
 

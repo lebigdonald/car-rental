@@ -2,7 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests\RegisterRequest;
@@ -12,10 +18,10 @@ use App\Models\User;
 class AuthController extends Controller
 {
      /**
-     * Display resgistration page.
-     * 
-     * @return \Illuminate\Http\Response
-     */
+     * Display registration page.
+     *
+     * @return Application|Factory|View|\Illuminate\Foundation\Application|\Illuminate\View\View
+      */
     public function show_register()
     {
         return view('auth.register');
@@ -23,9 +29,9 @@ class AuthController extends Controller
 
      /**
      * Display login page.
-     * 
-     * @return \Illuminate\Http\Response
-     */
+     *
+     * @return Application|Factory|\Illuminate\Foundation\Application|\Illuminate\View\View|View
+      */
     public function show_login()
     {
         return view('auth.login');
@@ -33,12 +39,11 @@ class AuthController extends Controller
 
     /**
      * Handle account registration request
-     * 
-     * @param RegisterRequest $request
-     * 
-     * @return \Illuminate\Http\Response
+     *
+     * @param RegisterRequest $req
+     * @return RedirectResponse
      */
-    public function register(RegisterRequest $req) 
+    public function register(RegisterRequest $req)
     {
         $user = User::create($req->validated());
 
@@ -49,10 +54,10 @@ class AuthController extends Controller
 
     /**
      * Handle account login request
-     * 
+     *
      * @param LoginRequest $request
-     * 
-     * @return \Illuminate\Http\Response
+     *
+     * @return RedirectResponse
      */
     public function login(LoginRequest $request)
     {
@@ -73,7 +78,7 @@ class AuthController extends Controller
     /**
      * Log out account user.
      *
-     * @return \Illuminate\Routing\Redirector
+     * @return Redirector
      */
     public function logout(Request $request)
     {
@@ -84,13 +89,13 @@ class AuthController extends Controller
 
     /**
      * Handle response after user authenticated
-     * 
+     *
      * @param Request $request
      * @param Auth $user
-     * 
-     * @return \Illuminate\Http\Response
+     *
+     * @return RedirectResponse
      */
-    protected function authenticated(Request $request, $user) 
+    protected function authenticated(Request $request, $user)
     {
         return redirect()->intended();
     }
