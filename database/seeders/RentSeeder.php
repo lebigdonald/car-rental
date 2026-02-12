@@ -37,7 +37,7 @@ class RentSeeder extends Seeder
                 'end_date' => $endDate,
                 'total_cost' => $days * $car->daily_rate,
                 'payement_status' => 'payé',
-                'payement_method' => 'Carte bancaire',
+                'payement_method' => 'Visa',
             ]);
         }
 
@@ -64,7 +64,7 @@ class RentSeeder extends Seeder
                     'end_date' => $endDate,
                     'total_cost' => $days * $car->daily_rate,
                     'payement_status' => 'en attente',
-                    'payement_method' => 'Mobile Money',
+                    'payement_method' => 'Mobile',
                 ]);
             }
         }

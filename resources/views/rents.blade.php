@@ -67,14 +67,13 @@
                                                         <td>{{ Carbon::parse($rent->end_date)->format('d/m/Y') }}</td>
                                                         <td>
                                                             @if($rent->payement_status == 'Payé')
-                                                                <span class="badge" style="background-color: #28a745; color: white; padding: 5px 10px; border-radius: 15px;">Payé</span>
+                                                                <span class="badge badge-success">Payé</span>
                                                             @elseif($rent->payement_status == 'En Attente')
-                                                                <span class="badge" style="background-color: #ffc107; color: black; padding: 5px 10px; border-radius: 15px;">En attente</span>
+                                                                <span class="badge badge-warning">En attente</span>
                                                             @elseif($rent->payement_status == 'Annulé')
-                                                                <span class="badge" style="background-color: #dc3545; color: white; padding: 5px 10px; border-radius: 15px;">Annulé</span>
+                                                                <span class="badge badge-danger">Annulé</span>
                                                             @else
-                                                                <span
-                                                                    class="badge" style="background-color: #6c757d; color: white; padding: 5px 10px; border-radius: 15px;">{{ $rent->payement_status }}</span>
+                                                                <span class="badge badge-default">{{ $rent->payement_status }}</span>
                                                             @endif
                                                         </td>
                                                         <td>{{ $rent->payement_method}}</td>
@@ -89,8 +88,7 @@
                                                                     onsubmit="return confirm('Voulez-vous vraiment annuler cette location ?');">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button type="submit"
-                                                                            class="btn btn-danger btn-sm" style="background-color: #dc3545; border-color: #dc3545; color: white; border-radius: 15px;">
+                                                                    <button type="submit" class="btn btn-danger btn-sm badge-danger">
                                                                         Annuler
                                                                     </button>
                                                                 </form>

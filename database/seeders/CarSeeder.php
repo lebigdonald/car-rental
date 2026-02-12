@@ -64,8 +64,8 @@ class CarSeeder extends Seeder
                 'model' => 'Model 3',
                 'make_year' => 2023,
                 'passenger_capacity' => 5,
-                'kilometers_per_liter' => 0, // Electric
-                'fuel_type' => 'Electric',
+                'kilometers_per_liter' => 0, // Electrique
+                'fuel_type' => 'Electrique',
                 'transmission_type' => 'Automatique',
                 'daily_rate' => 45000,
                 'image_url' => 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=800&q=80',
@@ -87,7 +87,7 @@ class CarSeeder extends Seeder
                 'make_year' => 2021,
                 'passenger_capacity' => 5,
                 'kilometers_per_liter' => 13.0,
-                'fuel_type' => 'hybrid',
+                'fuel_type' => 'Hybride',
                 'transmission_type' => 'Automatique',
                 'daily_rate' => 30000,
                 'image_url' => 'https://images.unsplash.com/photo-1626077388041-33311f8560f7?auto=format&fit=crop&w=800&q=80',
