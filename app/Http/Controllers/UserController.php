@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserUpdateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -41,37 +42,64 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id = "")
+    public function show(string $id = null)
     {
-        $user = User::find($id);
-        
+        if ($id) {
+            $user = User::findOrFail($id);
+        } else {
+            $user = Auth::user();
+        }
+
         if (Auth::guard('admin')->check()) {
             return view('admin.user-details')->with(compact('user'));
         } else {
-            return view('profile');
+            return view('profile', compact('user'));
         }
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id = null)
     {
-        $user = User::find($id);
-        
+        if ($id) {
+            $user = User::findOrFail($id);
+        } else {
+            $user = Auth::user();
+        }
+
         if (Auth::guard('admin')->check()) {
             return view('admin.user-edit')->with(compact('user'));
         } else {
-            return view('profile');
+            // For regular users, we might use the same profile view but with a form
+            return view('profile-edit', compact('user'));
         }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UserUpdateRequest $request, string $id = null)
     {
-        //
+        if ($id) {
+            $user = User::findOrFail($id);
+        } else {
+            $user = Auth::user();
+        }
+
+        $validatedData = $request->validated();
+
+        if (empty($validatedData['password'])) {
+            unset($validatedData['password']);
+        }
+
+        $user->update($validatedData);
+
+        if (Auth::guard('admin')->check()) {
+            return redirect()->route('admin.user.index')->with('success', 'Utilisateur mis à jour avec succès.');
+        } else {
+            return redirect()->route('user.show')->with('success', 'Profil mis à jour avec succès.');
+        }
     }
 
     /**
@@ -79,6 +107,11 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        if (Auth::guard('admin')->check()) {
+            $user = User::findOrFail($id);
+            $user->delete();
+            return redirect()->route('admin.user.index')->with('success', 'Utilisateur supprimé avec succès.');
+        }
+        return redirect()->back();
     }
 }

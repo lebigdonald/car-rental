@@ -15,9 +15,9 @@
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
   <!-- Favicons -->
-  <link rel="icon" type="image/png" href="icon/favicon-32x32.png" sizes="32x32">
-  <link rel="apple-touch-icon" href="icon/favicon-32x32.png">
-  <title>Car Rental – @yield('title')</title>
+  <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
+  <link rel="apple-touch-icon" href="{{ asset('favicon.svg') }}">
+  <title>CarRental – @yield('title')</title>
 
 </head>
 <body>

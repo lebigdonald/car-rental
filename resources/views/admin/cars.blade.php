@@ -22,8 +22,8 @@
             <div>
                 <a class="btn btn-primary m-3" href="{{ route('admin.car.create') }}" role="button">Ajouter</a>
             </div>
-            <div table-responsive">
-                <table class="table table-hover">
+            <div>
+                <table class="table table-hover table-responsive">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -49,7 +49,7 @@
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li><a class="dropdown-item" href="{{ route('admin.car.show', ['id' => $car->id]) }}">Voir</a></li>
-                                        <li><a class="dropdown-item disabled" href="{{ route('admin.car.edit', ['id' => $car->id]) }}">Modifier</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('admin.car.edit', ['id' => $car->id]) }}">Modifier</a></li>
                                         <li><button type="button" class="dropdown-item" onclick="if(confirm('Êtes-vous sûr de vouloir supprimer cette voiture?')) { document.getElementById('delete-form').submit(); }">Supprimer</button>
                                             <form id="delete-form" action="{{ route('admin.car.destroy', ['id' => $car->id]) }}" method="POST" style="display: none;">
                                                 @csrf

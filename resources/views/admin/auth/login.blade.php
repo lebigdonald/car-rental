@@ -32,6 +32,7 @@
 
                 <button class="sign__btn" type="submit"><span>Se connecter</span></button>
 
+                <small>Cette section existe juste pour les testes</small>
                 <span class="sign__text">Vous n'avez pas encore de compte ? <a href="{{ route('admin.register.show') }}">Inscrivez vous!</a></span>
             </form>
         </div>

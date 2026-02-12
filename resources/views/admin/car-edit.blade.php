@@ -1,21 +1,17 @@
 @extends('admin.layouts.master')
 
-@section('title', "Créer une voiture")
+@section('title', "Modifier une voiture")
 
 @section('main')
 <main>
     <div class="container-fluid px-4">
-        <h1 class="mt-4">Créer une voiture</h1>
+        <h1 class="mt-4">Modifier une voiture</h1>
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Accueil</a></li>
             <li class="breadcrumb-item"><a href="{{ route('admin.car.index') }}">Voitures</a></li>
-            <li class="breadcrumb-item active">Nouvelle</li>
+            <li class="breadcrumb-item active">Modifier</li>
         </ol>
-        <!-- <div class="card mb-4">
-            <div class="card-body">
-                Ici vous pouvez voir toute les voitures de notre parking.
-            </div>
-        </div>-->
+
         <div class="mb-4">
             @if ($errors->any())
             @foreach ($errors->all() as $error)
@@ -31,46 +27,47 @@
             @endif
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ route('admin.car.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('admin.car.update', $car->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        @method('PUT')
                         <div class="form-group row">
                             <label for="model" class="col-sm-3 my-2 col-form-label">Modèle :</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="model" name="model" required>
+                                <input type="text" class="form-control" id="model" name="model" value="{{ old('model', $car->model) }}" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="brand" class="col-sm-3 my-2 col-form-label">Marque :</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="brand" name="brand" required>
+                                <input type="text" class="form-control" id="brand" name="brand" value="{{ old('brand', $car->brand) }}" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="year" class="col-sm-3 my-2 col-form-label">Année de fabrication :</label>
                             <div class="col-sm-9">
-                                <input type="number" class="form-control" id="year" name="make_year" min="1900" max="{{ date('Y') }}" required>
+                                <input type="number" class="form-control" id="year" name="make_year" min="1900" max="{{ date('Y') + 1 }}" value="{{ old('make_year', $car->make_year) }}" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="seats" class="col-sm-3 my-2 col-form-label">Nombre de sièges :</label>
                             <div class="col-sm-9">
-                                <input type="number" class="form-control" id="seats" name="passenger_capacity" min="1" max="50" required>
+                                <input type="number" class="form-control" id="seats" name="passenger_capacity" min="1" max="50" value="{{ old('passenger_capacity', $car->passenger_capacity) }}" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="km_per_litre" class="col-sm-3 my-2 col-form-label">Kilométrage par litre :</label>
                             <div class="col-sm-9">
-                                <input type="number" class="form-control" id="km_per_litre" name="kilometers_per_liter" step="0.01" required>
+                                <input type="number" class="form-control" id="km_per_litre" name="kilometers_per_liter" step="0.01" value="{{ old('kilometers_per_liter', $car->kilometers_per_liter) }}" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="fuel_type" class="col-sm-3 my-2 col-form-label">Type de carburant :</label>
                             <div class="col-sm-9">
                                 <select class="form-control" id="fuel_type" name="fuel_type" required>
-                                    <option value="diesel">Diesel</option>
-                                    <option value="hybrid">Hybride</option>
-                                    <option value="essence">Essence</option>
-                                    <option value="electric">Électrique</option>
+                                    <option value="diesel" {{ old('fuel_type', $car->fuel_type) == 'diesel' ? 'selected' : '' }}>Diesel</option>
+                                    <option value="hybrid" {{ old('fuel_type', $car->fuel_type) == 'hybrid' ? 'selected' : '' }}>Hybride</option>
+                                    <option value="essence" {{ old('fuel_type', $car->fuel_type) == 'essence' ? 'selected' : '' }}>Essence</option>
+                                    <option value="electric" {{ old('fuel_type', $car->fuel_type) == 'electric' ? 'selected' : '' }}>Électrique</option>
                                 </select>
                             </div>
                         </div>
@@ -78,8 +75,8 @@
                             <label for="transmission_type" class="col-sm-3 my-2 col-form-label">Type de transmission :</label>
                             <div class="col-sm-9">
                                 <select class="form-control" id="transmission_type" name="transmission_type" required>
-                                    <option value="automatique">Automatique</option>
-                                    <option value="manuel">Manuel</option>
+                                    <option value="automatique" {{ old('transmission_type', $car->transmission_type) == 'automatique' ? 'selected' : '' }}>Automatique</option>
+                                    <option value="manuel" {{ old('transmission_type', $car->transmission_type) == 'manuel' ? 'selected' : '' }}>Manuel</option>
                                 </select>
                             </div>
                         </div>
@@ -87,26 +84,42 @@
                             <label for="rental_price" class="col-sm-3 my-2 col-form-label">Prix de location par jour :</label>
 
                             <div class="col-sm-9">
-                                <input type="number" suff class="form-control" id="rental_price" name="daily_rate" step="0.01" required> FCFA
+                                <input type="number" class="form-control" id="rental_price" name="daily_rate" step="0.01" value="{{ old('daily_rate', $car->daily_rate) }}" required> FCFA
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="main_image" class="col-sm-3 my-2 col-form-label">Image principale :</label>
+                            <label for="main_image" class="col-sm-3 my-2 col-form-label">Image principale (laisser vide pour conserver) :</label>
                             <div class="col-sm-9">
-                                <input type="file" class="form-control-file" id="main_image" name="main_image" accept="image/*" required>
+                                <input type="file" class="form-control-file" id="main_image" name="main_image" accept="image/*">
                                 <div id="main_image_preview"></div>
+                                @if($car->image_url)
+                                    <div class="mt-2">
+                                        <p class="mb-1">Image actuelle :</p>
+                                        <img src="{{ Storage::url($car->image_url) }}" alt="Current Image" style="max-height: 100px;">
+                                    </div>
+                                @endif
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="secondary_images" class="col-sm-3 my-2 col-form-label">Images secondaires (3 max) :</label>
+                            <label for="secondary_images" class="col-sm-3 my-2 col-form-label">Images secondaires (ajouter pour compléter) :</label>
                             <div class="col-sm-9">
                                 <input type="file" class="form-control-file" id="secondary_images" name="secondary_images[]" accept="image/*" multiple>
                                 <div id="secondary_images_preview" class="d-flex flex-wrap"></div>
+                                @if($car->secondaryImages->count() > 0)
+                                    <div class="mt-2">
+                                        <p class="mb-1">Images actuelles :</p>
+                                        <div class="d-flex flex-wrap">
+                                            @foreach($car->secondaryImages as $image)
+                                                <img src="{{ Storage::url($image->url) }}" alt="Secondary Image" style="max-height: 50px; margin-right: 5px;" class="img-thumbnail">
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                         <div class="form-group row my-4">
                             <div class="col-sm-12 text-center">
-                                <button type="submit" class="btn btn-primary">Créer</button>
+                                <button type="submit" class="btn btn-primary">Modifier</button>
                             </div>
                         </div>
                     </form>

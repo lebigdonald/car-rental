@@ -17,11 +17,24 @@ class Car extends Model
         'transmission_type',
         'daily_rate',
         'image_url',
-        'available'
+        // 'available' is deprecated, availability is calculated dynamically
     ];
 
     public function secondaryImages()
     {
         return $this->hasMany(Image::class);
+    }
+
+    public function rents()
+    {
+        return $this->hasMany(Rent::class);
+    }
+
+    public function scopeAvailable($query)
+    {
+        return $query->whereDoesntHave('rents', function ($q) {
+            $q->where('start_date', '<=', now())
+              ->where('end_date', '>=', now());
+        });
     }
 }

@@ -16,4 +16,14 @@ class Rent extends Model
         'car_id',
         'user_id',
     ];
+
+    public function car()
+    {
+        return $this->belongsTo(Car::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -31,8 +31,23 @@
         <div class="tab-pane fade  show active" id="tab-3" role="tabpanel">
           <div class="row row--grid">
             <!-- details form -->
-            <div class="col-12 col-lg-6">
-              <form action="#" class="sign__form sign__form--profile">
+            <div class="col-12">
+                @if (session('success'))
+                    <div class="alert alert-success">{{ session('success') }}</div>
+                @endif
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+              <form action="{{ route('user.update') }}" method="POST" class="sign__form sign__form--profile">
+                @csrf
+                @method('PUT')
                 <div class="row">
                   <div class="col-12">
                     <h4 class="sign__title">Détails du profil</h4>
@@ -41,75 +56,63 @@
                   <div class="col-12 col-md-6 col-lg-12 col-xl-6">
                     <div class="sign__group">
                       <label class="sign__label" for="firstname">Nom</label>
-                      <input id="firstname" type="text" value="{{ auth()->user()->first_name }}" name="first_name" class="sign__input" placeholder="John">
+                      <input id="firstname" type="text" value="{{ old('first_name', auth()->user()->first_name) }}" name="first_name" class="sign__input" placeholder="John">
                     </div>
                   </div>
 
                   <div class="col-12 col-md-6 col-lg-12 col-xl-6">
                     <div class="sign__group">
                       <label class="sign__label" for="lastname">Prénom</label>
-                      <input id="lastname" type="text" value="{{ auth()->user()->last_name }}" name="last_name" class="sign__input" placeholder="Doe">
+                      <input id="lastname" type="text" value="{{ old('last_name', auth()->user()->last_name) }}" name="last_name" class="sign__input" placeholder="Doe">
                     </div>
                   </div>
 
                   <div class="col-12 col-md-6 col-lg-12 col-xl-6">
                     <div class="sign__group">
                       <label class="sign__label" for="email">Email</label>
-                      <input id="email" type="email" value="{{ auth()->user()->email }}" name="email" class="sign__input" placeholder="email@email.com">
+                      <input id="email" type="email" value="{{ old('email', auth()->user()->email) }}" name="email" class="sign__input" placeholder="email@email.com">
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-6 col-lg-12 col-xl-6">
+                    <div class="sign__group">
+                      <label class="sign__label" for="phone">Téléphone</label>
+                      <input id="phone" type="text" value="{{ old('phone', auth()->user()->phone) }}" name="phone" class="sign__input" placeholder="+237...">
                     </div>
                   </div>
 
                   <div class="col-12 col-md-6 col-lg-12 col-xl-6">
                     <div class="sign__group">
                       <label class="sign__label" for="dateOfBirth">Date de naissance</label>
-                      <input id="dateOfBirth" type="date" value="{{ auth()->user()->date_of_birth }}" name="date_of_birth" class="sign__input" placeholder="10/10/2010">
+                      <input id="dateOfBirth" type="date" value="{{ old('date_of_birth', auth()->user()->date_of_birth) }}" name="date_of_birth" class="sign__input">
                     </div>
                   </div>
 
                   <div class="col-12">
-                    <button class="sign__btn btn-muted" disabled="disabled" type="submit"><span>Sauvegarder</span></button>
-                  </div>
-                </div>
-              </form>
-            </div>
-            <!-- end details form -->
-
-            <!-- password form -->
-            <div class="col-12 col-lg-6">
-              <form action="#" class="sign__form sign__form--profile">
-                <div class="row">
-                  <div class="col-12">
-                    <h4 class="sign__title">Changer de mot de passe</h4>
-                  </div>
-
-                  <div class="col-12 col-md-6 col-lg-12 col-xl-6">
-                    <div class="sign__group">
-                      <label class="sign__label" for="oldpass">Ancien mot de passe</label>
-                      <input id="oldpass" type="password" name="oldpass" class="sign__input">
-                    </div>
+                    <h4 class="sign__title">Changer de mot de passe (laisser vide pour ne pas changer)</h4>
                   </div>
 
                   <div class="col-12 col-md-6 col-lg-12 col-xl-6">
                     <div class="sign__group">
                       <label class="sign__label" for="newpass">Nouveau mot de passe</label>
-                      <input id="newpass" type="password" name="newpass" class="sign__input">
+                      <input id="newpass" type="password" name="password" class="sign__input">
                     </div>
                   </div>
 
                   <div class="col-12 col-md-6 col-lg-12 col-xl-6">
                     <div class="sign__group">
-                      <label class="sign__label" for="confirmpass">Confirmer le nouveau mot...</label>
-                      <input id="confirmpass" type="password" name="confirmpass" class="sign__input">
+                      <label class="sign__label" for="confirmpass">Confirmer le nouveau mot de passe</label>
+                      <input id="confirmpass" type="password" name="password_confirmation" class="sign__input">
                     </div>
                   </div>
 
                   <div class="col-12">
-                    <button class="sign__btn btn-muted" disabled="disabled" type="submit"><span>Changer</span></button>
+                    <button class="sign__btn" type="submit"><span>Sauvegarder</span></button>
                   </div>
                 </div>
               </form>
             </div>
-            <!-- end password form -->
+            <!-- end details form -->
           </div>
         </div>
       </div>

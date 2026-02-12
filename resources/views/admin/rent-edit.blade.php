@@ -3,30 +3,113 @@
 @section('title', "Modifier location")
 
 @section('main')
-<main>
-    <div class="container-fluid px-4">
-        <h1 class="mt-4">Modifier une location</h1>
-        <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Accueil</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('admin.rent.index') }}">Locations</a></li>
-            <li class="breadcrumb-item active">Modifier {{ $rent->id }}</li>
-        </ol>
-        <!-- <div class="card mb-4">
-            <div class="card-body">
-                Ici vous pouvez voir toute les voitures de notre parking.
-            </div>
-        </div>-->
-        <div class="mb-4">
-            <div class="card">
-                <div class="card-header">
-                    <h4>Location n{{ $rent->id }}</h4>
-                </div>
-                <div class="card-body">
-                    En developpement...    
-                </div>
-            </div>
+    <main>
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Modifier une location</h1>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.rent.index') }}">Locations</a></li>
+                <li class="breadcrumb-item active">Modifier {{ $rent->id }}</li>
+            </ol>
 
+            <div class="mb-4">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Location #{{ $rent->id }} - {{ $rent->car->brand }} {{ $rent->car->model }}</h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ route('admin.rent.update', $rent->id) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+
+                            <div class="form-group row mb-3">
+                                <label for="start_date" class="col-sm-3 col-form-label">Date de début :</label>
+                                <div class="col-sm-9">
+                                    <input type="date" class="form-control" id="start_date" name="start_date"
+                                           value="{{ old('start_date', \Carbon\Carbon::parse($rent->start_date)->format('Y-m-d')) }}"
+                                           required>
+                                </div>
+                            </div>
+
+                            <div class="form-group row mb-3">
+                                <label for="end_date" class="col-sm-3 col-form-label">Date de fin :</label>
+                                <div class="col-sm-9">
+                                    <input type="date" class="form-control" id="end_date" name="end_date"
+                                           value="{{ old('end_date', \Carbon\Carbon::parse($rent->end_date)->format('Y-m-d')) }}"
+                                           required>
+                                </div>
+                            </div>
+                            {{--
+                                                        <div class="form-group row mb-3">
+                                                            <label for="payement_status" class="col-sm-3 col-form-label">Statut du paiement
+                                                                :</label>
+                                                            <div class="col-sm-9">
+                                                                <select class="form-control" id="payement_status" name="payement_status" required>
+                                                                    <option
+                                                                        value="en attente" {{ old('payement_status', $rent->payement_status) == 'en attente' ? 'selected' : '' }}>
+                                                                        En attente
+                                                                    </option>
+                                                                    <option
+                                                                        value="payé" {{ old('payement_status', $rent->payement_status) == 'payé' ? 'selected' : '' }}>
+                                                                        Payé
+                                                                    </option>
+                                                                    <option
+                                                                        value="annulé" {{ old('payement_status', $rent->payement_status) == 'annulé' ? 'selected' : '' }}>
+                                                                        Annulé
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                            --}}
+                            <div class="form-group row mb-3">
+                                <label for="payement_method" class="col-sm-3 col-form-label">Méthode de paiement
+                                    :</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" id="payement_method" name="payement_method" required>
+                                        <option
+                                            value="cash" {{ old('payement_method', $rent->payement_method) == 'cash' ? 'selected' : '' }}>
+                                            Cash
+                                        </option>
+                                        <option
+                                            value="mobile" {{ old('payement_method', $rent->payement_method) == 'mobile' ? 'selected' : '' }}>
+                                            Mobile
+                                        </option>
+                                        <option
+                                            value="paypal" {{ old('payement_method', $rent->payement_method) == 'paypal' ? 'selected' : '' }}>
+                                            Paypal
+                                        </option>
+                                        <option
+                                            value="visa" {{ old('payement_method', $rent->payement_method) == 'visa' ? 'selected' : '' }}>
+                                            Visa
+                                        </option>
+                                        <option
+                                            value="mastercard" {{ old('payement_method', $rent->payement_method) == 'mastercard' ? 'selected' : '' }}>
+                                            Mastercard
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row mb-3">
+                                <div class="col-sm-12 text-center">
+                                    <button type="submit" class="btn btn-primary">Mettre à jour</button>
+                                    <a href="{{ route('admin.rent.index') }}" class="btn btn-secondary">Annuler</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-</main>
+    </main>
 @endsection

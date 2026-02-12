@@ -30,16 +30,16 @@ class CarCreationRequest extends FormRequest
             'kilometers_per_liter' => 'required|numeric|min:0|max:50',
             'fuel_type' => [
                 'required',
-                Rule::in(['diesel', 'hybride', 'essence', 'électrique']),
+                Rule::in(['diesel', 'hybrid', 'essence', 'electric']),
             ],
             'transmission_type' => [
                 'required',
-                Rule::in(['Automatique', 'Manuel']),
+                Rule::in(['automatique', 'manuel']),
             ],
             'daily_rate' => 'required|numeric|min:0',
-            'main_image' => 'required|image',
-            'secondary_images' => 'required|array|max:3',
-            'secondary_images.*' => 'required|image'
+            'main_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'secondary_images' => 'nullable|array|max:3',
+            'secondary_images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ];
     }
 }

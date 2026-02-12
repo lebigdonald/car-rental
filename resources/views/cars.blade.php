@@ -18,7 +18,7 @@
         <!-- title -->
         <div class="col-12">
             <div class="main__title main__title--page">
-                <h1>Choisez la meilleur voiture</h1>
+                <h1>Choissez la meilleur voiture</h1>
             </div>
         </div>
         <!-- end title -->

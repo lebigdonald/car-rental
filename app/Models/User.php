@@ -55,4 +55,9 @@ class User extends Authenticatable
     {
         $this->attributes['password'] = bcrypt($value);
     }
+
+    public function rents()
+    {
+        return $this->hasMany(Rent::class);
+    }
 }

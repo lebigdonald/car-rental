@@ -11699,3 +11699,48 @@ body {
   font-size: 0.75rem;
   border-radius: 0.25rem !important;
 }
+
+
+.badge-warning {
+    background-color: #ffc107;
+    color: black !important;
+    padding: 5px 10px;
+    border-radius: 15px;
+}
+
+.badge-success {
+    background-color: #28a745;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+}
+
+.badge-danger {
+    background-color: #dc3545;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+}
+
+.badge-cancel {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: white;
+    border-radius: 15px;
+    padding: 5px 10px
+}
+
+.badge-default {
+    background-color: #6c757d;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+}
+
+.badge-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
+    border-radius: 15px;
+    padding: 5px 10px;
+}

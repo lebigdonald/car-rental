@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\CarCreationRequest;
+use App\Http\Requests\CarUpdateRequest;
 use App\Models\Car;
 use App\Models\Image;
-use App\Http\Requests\CarCreationRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class CarController extends Controller
@@ -16,59 +17,45 @@ class CarController extends Controller
      */
     public function index(Request $request)
     {
-        $cars_latest = Car::latest();
-
-        // A modifier
         if (Auth::guard('admin')->check()) {
-            $cars = $cars_latest->paginate(20);
+            $cars = Car::latest()->paginate(20);
             return view('admin.cars', compact('cars'));
         }
 
-        $carsQuery = Car::query();
+        $carsQuery = Car::available();
 
-        // Filtre par modèle
-        if ($request->has('model')) {
-            $model = $request->input('model');
-            $carsQuery->where('model', 'like', "%$model%");
+        // Filter by model
+        if ($request->filled('model')) {
+            $carsQuery->where('model', 'like', '%' . $request->input('model') . '%');
         }
 
-        // Filtre par prix journalier max
-        if ($request->has('max_daily_rate')) {
-            $maxDailyRate = $request->input('max_daily_rate');
-            $carsQuery->where('daily_rate', '<=', $maxDailyRate);
+        // Filter by max daily rate
+        if ($request->filled('max_daily_rate')) {
+            $carsQuery->where('daily_rate', '<=', $request->input('max_daily_rate'));
         }
 
-        // Filtre par année de fabrication
-        if ($request->has('make_year')) {
-            $makeYear = $request->input('make_year');
-            $carsQuery->where('make_year', $makeYear);
+        // Filter by make year
+        if ($request->filled('make_year')) {
+            $carsQuery->where('make_year', $request->input('make_year'));
         }
 
-        if ($request->has('make_tmp')) {
-            $makeTmp = $request->input('make_tmp');
-            if ($makeTmp == 'nouveau') {
-                $carsQuery->where('make_year', '>=', date('Y') - 2);
-            } elseif ($makeTmp == 'ancien') {
-                $carsQuery->where('make_year', '<', date('Y') - 2);
-            }
+        if ($request->input('make_tmp') === 'nouveau') {
+            $carsQuery->where('make_year', '>=', date('Y') - 2);
+        } elseif ($request->input('make_tmp') === 'ancien') {
+            $carsQuery->where('make_year', '<', date('Y') - 2);
         }
 
-        // Filtre par marque
-        if ($request->has('brand')) {
-            $brand = $request->input('brand');
-            if ($brand != 'tout') {
-                $carsQuery->where('brand', 'like', "%$brand%");
-            }
+        // Filter by brand
+        if ($request->filled('brand') && $request->input('brand') !== 'tout') {
+            $carsQuery->where('brand', 'like', '%' . $request->input('brand') . '%');
         }
 
-        // Tri par date de création (plus récent d'abord)
-        if ($request->has('sort') && $request->input('sort') === 'recent') {
+        // Sort by creation date
+        if ($request->input('sort') === 'recent') {
             $carsQuery->orderByDesc('created_at');
         }
 
-        // Limite le nombre de résultats
-        $limit = $request->has('limit') ? $request->input('limit') : 9;
-
+        $limit = $request->input('limit', 9);
         $cars = $carsQuery->paginate($limit);
 
         return view('cars', compact('cars'));
@@ -77,14 +64,12 @@ class CarController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    // Not used
     public function create()
     {
         if (Auth::guard('admin')->check()) {
             return view('admin.car-create');
-        } else {
-            return view('cars');
         }
+        return redirect()->route('car.index');
     }
 
     /**
@@ -92,34 +77,17 @@ class CarController extends Controller
      */
     public function store(CarCreationRequest $request)
     {
-        // Récupérer les données validées
         $validatedData = $request->validated();
 
-        // Récupérer le fichier d'image principale
         $mainImage = $request->file('main_image');
+        $imagePath = $mainImage->store('car_images', 'public');
 
-        // Enregistrer la voiture dans la base de données
-        $car = new Car();
-        $car->model = $validatedData['model'];
-        $car->brand = $validatedData['brand'];
-        $car->make_year = $validatedData['make_year'];
-        $car->passenger_capacity = $validatedData['passenger_capacity'];
-        $car->kilometers_per_liter = $validatedData['kilometers_per_liter'];
-        $car->fuel_type = $validatedData['fuel_type'];
-        $car->transmission_type = $validatedData['transmission_type'];
-        $car->daily_rate = $validatedData['daily_rate'];
-        $car->available = true;
-        $car->image_url = $mainImage->store('car_images', 'public');
-        $car->save();
+        $car = Car::create(array_merge($validatedData, ['image_url' => $imagePath]));
 
-        // Enregistrer les images secondaires dans la base de données
-        $secondaryImages = $request->file('secondary_images');
-        if ($secondaryImages) {
-            foreach ($secondaryImages as $secondaryImage) {
-                $image = new Image();
-                $image->car_id = $car->id;
-                $image->url = $secondaryImage->store('car_images', 'public');
-                $image->save();
+        if ($request->hasFile('secondary_images')) {
+            foreach ($request->file('secondary_images') as $secondaryImage) {
+                $path = $secondaryImage->store('car_images', 'public');
+                $car->secondaryImages()->create(['url' => $path]);
             }
         }
 
@@ -131,13 +99,12 @@ class CarController extends Controller
      */
     public function show(string $id)
     {
-        $car = Car::with('secondaryImages')->find($id);
+        $car = Car::with('secondaryImages')->findOrFail($id);
 
         if (Auth::guard('admin')->check()) {
             return view('admin.car-details', compact('car'));
-        } else {
-            return view('car-details', compact('car'));
         }
+        return view('car-details', compact('car'));
     }
 
     /**
@@ -145,53 +112,39 @@ class CarController extends Controller
      */
     public function edit(string $id)
     {
-        $car = Car::with('secondaryImages')->find($id);
+        $car = Car::with('secondaryImages')->findOrFail($id);
 
         if (Auth::guard('admin')->check()) {
-            return view('admin.car-details', compact('car'));
-        } else {
-            return view('car-details', compact('car'));
+            return view('admin.car-edit', compact('car'));
         }
+        return redirect()->route('car.show', $id);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(CarUpdateRequest $request, string $id)
     {
-        // Récupérer les données validées
+        $car = Car::findOrFail($id);
         $validatedData = $request->validated();
 
-        // Récupérer le fichier d'image principale
-        $mainImage = $request->file('main_image');
+        if ($request->hasFile('main_image')) {
+            // Delete old image
+            Storage::disk('public')->delete($car->image_url);
+            $validatedData['image_url'] = $request->file('main_image')->store('car_images', 'public');
+        }
 
-        // Enregistrer la voiture dans la base de données
-        $car = Car::find($id);
+        $car->update($validatedData);
 
-        $car->model = $validatedData['model'];
-        $car->brand = $validatedData['brand'];
-        $car->make_year = $validatedData['make_year'];
-        $car->passenger_capacity = $validatedData['passenger_capacity'];
-        $car->kilometers_per_liter = $validatedData['kilometers_per_liter'];
-        $car->fuel_type = $validatedData['fuel_type'];
-        $car->transmission_type = $validatedData['transmission_type'];
-        $car->daily_rate = $validatedData['daily_rate'];
-        $car->available = true;
-        $car->image_url = $mainImage->store('car_images', 'public');
-        $car->update((array)$car);
-
-        // Enregistrer les images secondaires dans la base de données
-        $secondaryImages = $request->file('secondary_images');
-        if ($secondaryImages) {
-            foreach ($secondaryImages as $secondaryImage) {
-                $image = new Image();
-                $image->car_id = $car->id;
-                $image->url = $secondaryImage->store('car_images', 'public');
-                $image->save();
+        if ($request->hasFile('secondary_images')) {
+            // Consider deleting old secondary images if that's the desired behavior
+            foreach ($request->file('secondary_images') as $secondaryImage) {
+                $path = $secondaryImage->store('car_images', 'public');
+                $car->secondaryImages()->create(['url' => $path]);
             }
         }
 
-        return redirect()->route('admin.car.index')->with('success', 'La voiture a été modifié avec succès.');
+        return redirect()->route('admin.car.index')->with('success', 'La voiture a été modifiée avec succès.');
     }
 
     /**
@@ -199,19 +152,17 @@ class CarController extends Controller
      */
     public function destroy(string $id)
     {
-        // Récupérer la voiture à supprimer
         $car = Car::findOrFail($id);
 
-        // Supprimer l'image principale de la voiture
+        // Delete main image
         Storage::disk('public')->delete($car->image_url);
 
-        // Supprimer les images secondaires de la voiture
+        // Delete secondary images
         foreach ($car->secondaryImages as $image) {
             Storage::disk('public')->delete($image->url);
             $image->delete();
         }
 
-        // Supprimer la voiture de la base de données
         $car->delete();
 
         return redirect()->route('admin.car.index')->with('success', 'La voiture a été supprimée avec succès.');
