@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('make_year');
             $table->integer('passenger_capacity', unsigned: true);
             $table->decimal('kilometers_per_liter', unsigned: true);
-            $table->enum('fuel_type', ['Diesel', 'Hybride', 'Essence', 'Électrique']);
+            $table->enum('fuel_type', ['Diesel', 'Hybride', 'Essence', 'Electrique']);
             $table->enum('transmission_type', ['Automatique', 'Manuel']);
             $table->decimal('daily_rate');
             $table->boolean('available')->default(false);

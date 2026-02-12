@@ -23,7 +23,7 @@ class CarFactory extends Factory
             'make_year' => fake()->year(),
             'passenger_capacity' => fake()->numberBetween(2, 7),
             'kilometers_per_liter' => fake()->randomFloat(2, 5, 20),
-            'fuel_type' => fake()->randomElement(['Diesel', 'Hybride', 'Essence', 'Électrique']),
+            'fuel_type' => fake()->randomElement(['Diesel', 'Hybride', 'Essence', 'Electrique']),
             'transmission_type' => fake()->randomElement(['Automatique', 'Manuel']),
             'daily_rate' => fake()->randomFloat(2, 10000, 50000),
             'image_url' => 'car_images/default.jpg',

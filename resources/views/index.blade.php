@@ -76,11 +76,11 @@
           <div class="splide__track">
             <ul class="splide__list">
               <li class="splide__slide">
-                <img src="{{ Storage::url($car->image_url) }}" alt="">
+                <img src="{{ str_starts_with($car->image_url, 'http') ? $car->image_url : Storage::url($car->image_url) }}" alt="">
               </li>
               @foreach ($car->secondaryImages as $image)
               <li class="splide__slide">
-                <img src="{{ Storage::url($car->image_url) }}" alt="">
+                <img src="{{ str_starts_with($image->url, 'http') ? $image->url : Storage::url($image->url) }}" alt="">
               </li>
               @endforeach
             </ul>

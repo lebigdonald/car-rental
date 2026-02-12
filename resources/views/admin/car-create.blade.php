@@ -70,7 +70,7 @@
                                     <option value="Diesel">Diesel</option>
                                     <option value="Hybride">Hybride</option>
                                     <option value="Essence">Essence</option>
-                                    <option value="Électrique">Électrique</option>
+                                    <option value="Electrique">Electrique</option>
                                 </select>
                             </div>
                         </div>

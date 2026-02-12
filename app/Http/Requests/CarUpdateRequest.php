@@ -33,7 +33,7 @@ class CarUpdateRequest extends FormRequest
             'kilometers_per_liter' => 'sometimes|numeric|min:0',
             'fuel_type' => [
                 'sometimes',
-                Rule::in(['Diesel', 'Hybride', 'Essence', 'Électrique']),
+                Rule::in(['Diesel', 'Hybride', 'Essence', 'Electrique']),
             ],
             'transmission_type' => [
                 'sometimes',

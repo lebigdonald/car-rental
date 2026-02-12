@@ -30,7 +30,7 @@ class CarCreationRequest extends FormRequest
             'kilometers_per_liter' => 'required|numeric|min:0|max:50',
             'fuel_type' => [
                 'required',
-                Rule::in(['Diesel', 'Hybride', 'Essence', 'Électrique']),
+                Rule::in(['Diesel', 'Hybride', 'Essence', 'Electrique']),
             ],
             'transmission_type' => [
                 'required',

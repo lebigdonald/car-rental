@@ -27,7 +27,7 @@ class CarManagementTest extends TestCase
             'make_year' => 2023,
             'passenger_capacity' => 5,
             'kilometers_per_liter' => 0, // Electric
-            'fuel_type' => 'Électrique',
+            'fuel_type' => 'Electrique',
             'transmission_type' => 'Automatique',
             'daily_rate' => 50000,
             'main_image' => $file,

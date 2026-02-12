@@ -67,7 +67,7 @@
                                     <option value="Diesel" {{ old('fuel_type', $car->fuel_type) == 'Diesel' ? 'selected' : '' }}>Diesel</option>
                                     <option value="Hybride" {{ old('fuel_type', $car->fuel_type) == 'Hybride' ? 'selected' : '' }}>Hybride</option>
                                     <option value="Essence" {{ old('fuel_type', $car->fuel_type) == 'Essence' ? 'selected' : '' }}>Essence</option>
-                                    <option value="Électrique" {{ old('fuel_type', $car->fuel_type) == 'Électrique' ? 'selected' : '' }}>Électrique</option>
+                                    <option value="Electrique" {{ old('fuel_type', $car->fuel_type) == 'Electrique' ? 'selected' : '' }}>Electrique</option>
                                 </select>
                             </div>
                         </div>
@@ -95,7 +95,8 @@
                                 @if($car->image_url)
                                     <div class="mt-2">
                                         <p class="mb-1">Image actuelle :</p>
-                                        <img src="{{ Storage::url($car->image_url) }}" alt="Current Image" style="max-height: 100px;">
+                                         <img src="{{ str_starts_with($car->image_url, 'http') ? $car->image_url : Storage::url($car->image_url) }}" alt="Current Image" style="max-height: 100px;">
+
                                     </div>
                                 @endif
                             </div>
@@ -110,7 +111,7 @@
                                         <p class="mb-1">Images actuelles :</p>
                                         <div class="d-flex flex-wrap">
                                             @foreach($car->secondaryImages as $image)
-                                                <img src="{{ Storage::url($image->url) }}" alt="Secondary Image" style="max-height: 50px; margin-right: 5px;" class="img-thumbnail">
+                                                <img src="{{ str_starts_with($image->url, 'http') ? $image->url : Storage::url($image->url) }}" alt="Secondary Image" style="max-height: 50px; margin-right: 5px;" class="img-thumbnail">
                                             @endforeach
                                         </div>
                                     </div>

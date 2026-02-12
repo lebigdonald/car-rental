@@ -5,7 +5,9 @@ CarRental est une plateforme complète de location de voitures conçue pour simp
 ## 1. Lien vers l’application web déployée
 
 L'application est accessible à l'adresse suivante :
-[CarRental](https://car-rental.oc-classic.com)
+[https://votre-url-de-deploiement.com](https://votre-url-de-deploiement.com)
+
+*(Remplacez ce lien par l'URL réelle de votre déploiement)*
 
 ## 2. Architecture et Choix Techniques
 
@@ -35,7 +37,7 @@ Le projet suit l'architecture **MVC (Modèle-Vue-Contrôleur)** imposée par le 
 
 1.  **Cloner le dépôt**
     ```bash
-    git clone https://github.com/lebigdonald/car-rental.git
+    git clone https://github.com/votre-utilisateur/car-rental.git
     cd car-rental
     ```
 
@@ -68,6 +70,14 @@ Le projet suit l'architecture **MVC (Modèle-Vue-Contrôleur)** imposée par le 
     ```
     *Cela créera les tables et insérera des données de test (utilisateurs, voitures, admins).*
 
+    **Comptes par défaut créés par les seeders :**
+    - **Administrateur** :
+        - Nom d'utilisateur : `admin`
+        - Mot de passe : `password`
+    - **Utilisateur** :
+        - Email : `john@example.com`
+        - Mot de passe : `password`
+
 7.  **Lancer le serveur de développement**
     ```bash
     php artisan serve
@@ -98,8 +108,8 @@ Le projet suit l'architecture **MVC (Modèle-Vue-Contrôleur)** imposée par le 
 Le projet inclut une suite complète de tests unitaires et d'intégration pour assurer la stabilité et la fiabilité de l'application.
 
 ### Types de Tests
-- **Tests Unitaires (Unit Tests)** : Vérifient le bon fonctionnement des méthodes individuelles et de la logique métier (ex : scopes des modèles).
-- **Tests d'Intégration (Feature Tests)** : Vérifient le bon fonctionnement des fonctionnalités complètes, incluant les requêtes HTTP, l'accès à la base de données et l'authentification (ex : processus de location, gestion des voitures par l'admin).
+- **Tests Unitaires (Unit Tests)** : Vérifient le bon fonctionnement des méthodes individuelles et de la logique métier (ex: scopes des modèles).
+- **Tests d'Intégration (Feature Tests)** : Vérifient le bon fonctionnement des fonctionnalités complètes, incluant les requêtes HTTP, l'accès à la base de données et l'authentification (ex: processus de location, gestion des voitures par l'admin).
 
 ### Lancer les Tests
 
@@ -117,7 +127,7 @@ php artisan test tests/Feature/RentalProcessTest.php
 
 ## Fonctionnalités Clés
 
-- **Système de Réservation** : Vérification automatique de la disponibilité des véhicules pour éviter les conflits de dates.
+- **Système de Réservation** : Vérification Automatique de la disponibilité des véhicules pour éviter les conflits de dates.
 - **Facturation** : Génération automatique de factures PDF pour les locations payées.
 - **Notifications** : Envoi d'emails automatiques lors de l'approbation ou du rejet d'une location.
 - **Sécurité** : Protection des routes par middleware, validation des entrées, et protection CSRF.

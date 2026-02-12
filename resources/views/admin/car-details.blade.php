@@ -24,7 +24,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <img src="{{ Storage::url($car->image_url) }}" class="img-fluid" alt="Image principale de la voiture">
+                            <img src="{{ str_starts_with($car->image_url, 'http') ? $car->image_url : Storage::url($car->image_url) }}" class="img-fluid" alt="Image principale de la voiture">
                         </div>
                         <div class="col-md-6">
                             <ul class="list-group">
@@ -45,7 +45,7 @@
                     <div class="row">
                         @foreach($car->secondaryImages as $image)
                         <div class="col-md-4 mt-3">
-                            <img src="{{ Storage::url($image->url) }}" class="img-fluid" alt="Image secondaire de la voiture">
+                            <img src="{{ str_starts_with($image->url, 'http') ? $image->url : Storage::url($image->url) }}" class="img-fluid" alt="Image secondaire de la voiture">
                         </div>
                         @endforeach
                     </div>
