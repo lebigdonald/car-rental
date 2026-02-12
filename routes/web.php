@@ -27,6 +27,12 @@ Route::get('/fix-storage', function () {
     return 'Storage link created';
 });
 
+
+Route::get('/migrate-seed', function () {
+    Artisan::call('migrate:refresh --seed');
+    return 'Migration and Seeders created';
+});
+
 Route::get('/', [PageController::class, 'home'])->name('home.index');
 
 // Car(s) routes
