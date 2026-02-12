@@ -43,7 +43,7 @@
                         @foreach ($rents as $rent)
                             <tr>
                                 <td>{{ $rent->id }}</td>
-                                <td>{{ Carbon::parse($rent->start_date)->format('d/m/Y')}}</td>
+                                <td>{{ Carbon::parse($rent->start_date)->format('d/m/Y') }}</td>
                                 <td>{{ Carbon::parse($rent->end_date)->format('d/m/Y') }}</td>
                                 <td>{{ number_format($rent->total_cost, 0, ',', ' ') }} FCFA</td>
                                 <td>

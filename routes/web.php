@@ -82,6 +82,8 @@ Route::group(['prefix' => 'admin'], function () {
 
         // Admin home
         Route::get('/', [AdminController::class, 'index'])->name('admin.home');
+        Route::get('/create', [AdminController::class, 'createAdmin'])->name('admin.create');
+        Route::post('/create', [AdminController::class, 'storeAdmin'])->name('admin.store');
 
         //Admin cars
         Route::get('/voitures', [CarController::class, 'index'])->name('admin.car.index');

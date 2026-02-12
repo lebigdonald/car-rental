@@ -1,3 +1,4 @@
+@php use Carbon\Carbon; @endphp
 @extends('admin.layouts.master')
 
 @section('title', 'Utiisateurs')
@@ -17,10 +18,13 @@
         </div>-->
         <div class="mb-4">
             <div>
-                <a class="btn btn-primary m-3 disabled" href="#" role="button" >Ajouter</a>
+                <!--
+                <a class="btn btn-primary m-3 disabled" href="#" role="button" >Ajouter Utilisateur</a>
+                -->
+                <a class="btn btn-primary m-3" href="{{ route('admin.create') }}" role="button" >Ajouter Utilisateur</a>
             </div>
-            <div table-responsive">
-                <table class="table table-hover">
+            <div>
+                <table class="table table-hover table-responsive">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -38,7 +42,7 @@
                             <td>{{ $user->first_name.' '.$user->last_name }}</td>
                             <td>{{ $user->phone }}</td>
                             <td>{{ $user->email }}</td>
-                            <td>{{ $user->date_of_birth }}</td>
+                            <td>{{ Carbon::parse($user->date_of_birth)->format('d/m/Y') }}</td>
                             <td>
                                 <div class="dropdown open">
                                     <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
