@@ -58,7 +58,10 @@ class CarController extends Controller
         $limit = $request->input('limit', 9);
         $cars = $carsQuery->paginate($limit);
 
-        return view('cars', compact('cars'));
+        // Get distinct brands for filter
+        $brands = Car::distinct()->pluck('brand');
+
+        return view('cars', compact('cars', 'brands'));
     }
 
     /**
